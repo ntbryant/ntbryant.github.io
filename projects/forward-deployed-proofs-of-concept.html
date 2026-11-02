@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Forward-deployed engineering — Nick Turman-Bryant</title>
+<meta name="description" content="Work built with and for teams across ICF. In the first half of 2025 I led or significantly supported ten proof-of-concept deployments against a goal of eight, and I built applications and data products for specific teams.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316181a%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Arial,sans-serif%27 font-size=%2720%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23f5f5f2%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  :root {
+    --ground: #f5f5f2;
+    --surface: #ffffff;
+    --surface-2: #eaeae5;
+    --ink: #16181a;
+    --ink-2: #41464a;
+    --ink-3: #6b7176;
+    --rule: #d5d5ce;
+    --accent: #3a4a9b;
+    --live: #2c6e4b;
+    --live-soft: #dcebe1;
+    --panel: #061f3f;
+    --panel-ink: #e8eef6;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+      --pad: clamp(20px, 5vw, 64px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141516; --surface: #1c1e20; --surface-2: #26292b;
+      --ink: #ecece8; --ink-2: #bcc0c3; --ink-3: #8b9196; --rule: #33373a;
+      --accent: #93a2e8; --live: #79c79a; --live-soft: #163022;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141516; --surface: #1c1e20; --surface-2: #26292b;
+    --ink: #ecece8; --ink-2: #bcc0c3; --ink-3: #8b9196; --rule: #33373a;
+    --accent: #93a2e8; --live: #79c79a; --live-soft: #163022;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 17.5px/1.62 var(--body); -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .wrap {
+    max-width: 880px; margin: 0 auto;
+    padding-left: max(var(--pad), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--pad), env(safe-area-inset-right, 0px));
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .back { display: inline-block; margin: 22px 0 0; font: 600 15px var(--display); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+
+  header { padding-top: 40px; }
+  h1 { font: 800 clamp(40px, 8vw, 72px)/.98 var(--display); letter-spacing: -.035em; margin: 0 0 18px; text-wrap: balance; }
+  .lede { font-size: 20px; color: var(--ink-2); max-width: 60ch; margin: 0; }
+
+  figure { margin: 36px 0 0; }
+  .shot { background: var(--panel); padding: clamp(14px, 3vw, 32px); display: flex; justify-content: center; }
+  .shot img { display: block; width: 100%; max-width: 720px; height: auto; }
+  figcaption { font-size: 14.5px; color: var(--ink-3); margin-top: 10px; max-width: 70ch; }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 36px 0 0; }
+  .facts div { background: var(--surface); padding: 14px 16px; min-width: 0; }
+  .facts dt { font: 600 14px var(--display); color: var(--ink-3); margin: 0 0 4px; }
+  .facts dd { margin: 0; font-size: 16px; line-height: 1.4; }
+
+  h2 { font: 700 clamp(24px, 3.6vw, 30px)/1.12 var(--display); letter-spacing: -.025em; margin: 56px 0 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  p { margin: 0 0 16px; max-width: 66ch; }
+  ul { margin: 0 0 16px; padding-left: 1.15em; max-width: 66ch; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--ink-3); }
+
+  .modules { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; max-width: none; }
+  .modules li { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; margin: 0; min-width: 0; }
+  .modules b { display: block; font: 700 17px/1.25 var(--display); letter-spacing: -.01em; margin-bottom: 4px; }
+  .modules span { font-size: 15.5px; color: var(--ink-2); line-height: 1.45; }
+
+    .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font: 600 16px var(--display); }
+
+  footer { margin-top: 72px; padding: 22px 0 56px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-3); }
+
+  .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 0; margin: 0 0 10px; }
+  .node { flex: 1 1 150px; min-width: 0; background: var(--surface); border: 1px solid var(--rule); padding: 12px 14px; }
+  .node b { display: block; font: 700 15px/1.25 var(--display); letter-spacing: -.01em; margin-bottom: 3px; }
+  .node span { font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+  .arrow { flex: 0 0 28px; display: flex; align-items: center; justify-content: center; color: var(--ink-3); font: 500 16px var(--display); }
+  .pocs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 0 0 16px; }
+  .pocs article { background: var(--surface); border: 1px solid var(--rule); padding: 16px 18px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .pocs h3 { font: 700 18px/1.25 var(--display); letter-spacing: -.01em; margin: 0; }
+  .pocs p { margin: 0; max-width: none; font-size: 16px; line-height: 1.45; color: var(--ink-2); }
+  .pocs .team { font: 600 14px var(--display); color: var(--accent); }
+  .pocs .stk { margin-top: auto; padding-top: 4px; font: 500 14px var(--display); color: var(--ink-3); }
+  .diagram { background: var(--surface-2); padding: clamp(14px, 3vw, 28px); }
+  @media (max-width: 640px) {
+    .flow { flex-direction: column; gap: 0; }
+    .arrow { flex-basis: 26px; transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../index.html">← Portfolio</a>
+
+  <header>
+    <h1>Forward-deployed engineering</h1>
+    <p class="lede">Work built with and for teams across ICF. In the first half of 2025 I led or significantly supported ten proof-of-concept deployments against a goal of eight, and I built applications and data products for specific teams.</p>
+  </header>
+
+  <figure>
+    <div class="diagram">
+<div class="flow"><div class="node"><b>ICF teams with a problem</b><span>Regulatory Policy &amp; Economics, Europe and Asia, DMX</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Forward-deployed engineer</b><span>Scoping, building and handing off</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Cloud platforms</b><span>AWS SageMaker and Bedrock, Azure OpenAI and Container Apps</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>A working proof of concept</b><span>Run by the team that asked for it</span></div></div>
+    </div>
+    <figcaption>How the work moved. Sketch, not a screenshot.</figcaption>
+  </figure>
+
+  <dl class="facts"><div><dt>My role</dt><dd>Led or significantly supported each deployment</dd></div><div><dt>Period</dt><dd>2023–2026</dd></div><div><dt>Result</dt><dd>Ten proofs of concept delivered against a goal of eight</dd></div><div><dt>Built with</dt><dd>AWS SageMaker, Bedrock, Azure OpenAI, Django, Next.js, R, Power BI</dd></div></dl>
+
+  <h2>Selected from the ten</h2>
+  <p>The ten also included the Prithvi WxC and Sup3rCC climate downscaling work, described on its own page.</p>
+  <div class="pocs"><article><h3>COMET coding challenge</h3><p class="team">DMX</p><p>Deployed two AWS environments with the Fathom products and unblocked access to Bedrock models for a coding challenge.</p><p class="stk">AWS · Bedrock</p></article><article><h3>Geospatial analysis at scale</h3><p class="team">Regulatory Policy &amp; Economics</p><p>Ported an R workflow that builds geospatial variables from hydrography, census and ecoregion data to SageMaker, for a water-quality benefit-transfer database.</p><p class="stk">R · AWS SageMaker</p></article><article><h3>Distributed policy simulation</h3><p class="team">Regulatory Policy &amp; Economics</p><p>Ran a Monte Carlo simulation across tens of thousands of scenarios on SageMaker, with results written to S3. It replaced a paid external subcontractor, at lower cost and faster, and the Europe and Asia team wanted to reuse the approach.</p><p class="stk">R · Python · SageMaker ScriptProcessor · S3</p></article><article><h3>PowerGuide agent app</h3><p class="team">An application team and an AI agent builder</p><p>Built a chat web app that puts a user interface and tracing around an agent made by another team, packaged for Azure Container Apps.</p><p class="stk">ChainLit · Azure AI Foundry · Azure Container Apps</p></article><article><h3>Product portfolio app</h3><p class="team">FOST</p><p>Built, with a teammate, a web app that showcases the team&#x27;s proofs of concept, with an AI chat for finding products and analysis of uploaded documents.</p><p class="stk">Azure OpenAI · Python · React</p></article><article><h3>Survey analysis tool</h3><p class="team">Europe and Asia</p><p>Deployed a self-service tool for analyzing survey results, replacing charts and tables drafted by hand.</p><p class="stk">Python · web app</p></article><article><h3>Fathom documentation site</h3><p class="team">Fathom platform team</p><p>Built a proof of concept for a different kind of docs site: PDFs converted to markdown, with an interactive agent to ask questions.</p><p class="stk">Python · LLM agent</p></article><article><h3>DMX Fathom AWS pilot</h3><p class="team">DMX</p><p>Supported DMX&#x27;s first pilot of Fathom on AWS: arranged access, answered architecture questions and helped deploy their demo application.</p><p class="stk">AWS</p></article></div>
+  <h2>Turnaround</h2>
+  <p>Ten deployments in about six months, roughly one every two to three weeks, with several running at once.</p>
+  <h2>Other forward-deployed work</h2>
+  <div class="pocs"><article><h3>Needs-assessment assistant</h3><p class="team">HPHS</p><p>An AI assistant for needs assessment, built with Django, Next.js and Azure OpenAI. I became its technical lead in the second half of 2025, managed its infrastructure as code, and handed it off to the client&#x27;s development team with documentation, onboarding and a reusable playbook.</p><p class="stk">Django 5 · Next.js 16 · Azure OpenAI · PostgreSQL · Pulumi</p></article><article><h3>Sales forecasting</h3><p class="team">ICF sales and executive leadership</p><p>Built win-probability, quarter-close and revenue models in R for ICF&#x27;s sales estimates, delivered through an Azure Data Factory pipeline into Power BI. Executives use the output regularly for financial forecasting.</p><p class="stk">R · autoXGBoost · Azure Data Factory · Power BI</p></article><article><h3>Account-based marketing models</h3><p class="team">Account-based marketing initiative</p><p>Built generative-AI models that predict a utility customer&#x27;s business type and parent company. Because the data was sensitive, I compared small local language models inside a secure enclave with frontier models.</p><p class="stk">Python · DeBERTa · F-Net · BERT-tiny · GPT-4o</p></article></div>
+
+
+
+
+  <footer>Nick Turman-Bryant · <a href="../index.html">Back to portfolio</a></footer>
+</div>
+</body>
+</html>

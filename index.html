@@ -1,297 +1,432 @@
-<!DOCTYPE HTML>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nick Turman-Bryant — Portfolio</title>
+<meta name="description" content="Consulting work, applications, education and publications from Nick Turman-Bryant, lead data scientist and solutions architect.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316181a%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Arial,sans-serif%27 font-size=%2720%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23f5f5f2%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  :root {
+    color-scheme: light dark;
+    --ground: #f5f5f2;
+    --surface: #ffffff;
+    --surface-2: #eaeae5;
+    --ink: #16181a;
+    --ink-2: #41464a;
+    --ink-3: #6b7176;
+    --rule: #d5d5ce;
+    --accent: #3a4a9b;
+    --accent-soft: #e4e6f2;
+    --flag: #c0261b;
+    --live: #2c6e4b;
+    --live-soft: #dcebe1;
+    --wip: #8a6212;
+    --wip-soft: #f0e6ce;
 
-<html>
-	<head>
-	<meta name="generator" content="Hugo 0.21" />
-		<title>Nick Turman-Bryant</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		<link rel="stylesheet" href="/css/main.css" />
-		
-		
-		<link rel="shortcut icon" type="image/x-icon" href="img/favicon2.ico">
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+    --pad: clamp(20px, 5vw, 64px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #141516;
+      --surface: #1c1e20;
+      --surface-2: #26292b;
+      --ink: #ecece8;
+      --ink-2: #bcc0c3;
+      --ink-3: #8b9196;
+      --rule: #33373a;
+      --accent: #93a2e8;
+      --accent-soft: #232842;
+      --flag: #ff8b7e;
+      --live: #79c79a;
+      --live-soft: #163022;
+      --wip: #ddb65c;
+      --wip-soft: #332912;
+    }
+  }
 
-		<script>
-	  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 17.5px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 var(--pad); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-	  		ga('create', 'UA-102687342-2', 'auto');
-	  		ga('send', 'pageview');
+  /* ---- nav ---- */
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--ground) 94%, transparent);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 24px; padding-block: 12px; }
+  .nav .name { font: 700 17px var(--display); letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
+  .nav ul { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { font: 500 15px var(--display); color: var(--ink-2); text-decoration: none; }
+  .nav ul a:hover { color: var(--accent); text-decoration: underline; }
 
-		</script>
+  /* ---- hero ---- */
+  .hero { padding-block: clamp(56px, 10vw, 112px) 8px; }
+  h1 {
+    font: 800 clamp(42px, 8vw, 84px)/.98 var(--display);
+    letter-spacing: -.035em; margin: 0 0 24px; text-wrap: balance;
+  }
+  .lede { max-width: 56ch; font-size: 21px; color: var(--ink-2); margin: 0; }
 
-	</head>
-	<body>
+  /* ---- sections ---- */
+  section { padding-top: 80px; scroll-margin-top: 56px; }
+  .sec-head { border-bottom: 1px solid var(--rule); padding-bottom: 12px; margin-bottom: 28px; }
+  h2 { font: 700 clamp(28px, 4vw, 38px)/1.1 var(--display); letter-spacing: -.025em; margin: 0; }
 
-		
-			<div id="header">
+  /* ---- cards ---- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 16px; }
+  .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 680px) { .grid.two { grid-template-columns: 1fr; } }
+  .card {
+    height: 100%;
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 20px;
+  }
+  .card h3 { font: 700 21px/1.2 var(--display); letter-spacing: -.02em; margin: 0; }
+  .card p { margin: 0; font-size: 16.5px; line-height: 1.5; color: var(--ink-2); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font: 500 14px var(--display); color: var(--ink-3); }
+  .chip { font: 600 12.5px var(--display); padding: 2px 8px; border-radius: 3px; background: var(--surface-2); color: var(--ink-2); }
+  .chip.live { background: var(--live-soft); color: var(--live); }
+  .chip.wip  { background: var(--wip-soft);  color: var(--wip); }
+  .stack { margin-top: auto; padding-top: 6px; font: 500 14px/1.45 var(--display); color: var(--ink-3); }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 600 15px var(--display); }
+  .ai { color: var(--flag); }
 
-				<div class="top">
+  /* feature groups */
+  .feature { margin-top: 44px; padding: clamp(20px, 4vw, 36px); }
+  .feature.build { background: var(--accent-soft); }
+  .feature.fde { background: var(--surface-2); }
+  .feature h3 { font: 800 clamp(30px, 5vw, 44px)/1.04 var(--display); letter-spacing: -.03em; margin: 0 0 10px; }
+  .feature-lede { font-size: 19px; color: var(--ink-2); margin: 0 0 24px; max-width: 56ch; }
+  .feature .card h3 { font: 700 21px/1.2 var(--display); letter-spacing: -.02em; margin: 0; }
 
-					
-						<div id="logo">
-							<span class="image avatar48"><img src="img/avatar.jpg" alt="" /></span>
-							<h1 id="title">Nick Turman-Bryant</h1>
-							<p>Data Scientist</p>
-						</div>
+  /* ---- education ---- */
+  .edu { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 16px; }
+  .edu > div { background: var(--surface); border: 1px solid var(--rule); padding: 18px 20px; min-width: 0; }
+  .edu b { display: block; font: 700 18px/1.25 var(--display); letter-spacing: -.015em; margin-bottom: 4px; }
+  .edu span { font-size: 16px; color: var(--ink-2); }
 
-					
-						<nav id="nav">
-							
-							<ul>
-								<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
-								<li><a href="#publications" id="publications-link" class="skel-layers-ignoreHref"><span class="icon fa-file">Publications</span></a></li>
-								<li><a href="#portfolio" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Portfolio</span></a></li>
-								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-user">About Me</span></a></li>
-								<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-envelope">Contact</span></a></li>
-								<li><a href="img/CV.pdf" id="cv-link" class="skel-layers-ignoreHref" target="_blank"><span class="icon fa-file-pdf-o">CV</span></a></li>
-							</ul>
-						</nav>
+  /* ---- publications ---- */
+  .pubs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .pub { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--rule); min-width: 0; }
+  .pub img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--surface-2); }
+  .pub-body { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 18px; flex: 1; }
+  .pub h3 { font: 700 18px/1.28 var(--display); letter-spacing: -.01em; margin: 0; }
+  .pub h3 a { color: var(--ink); text-decoration: none; }
+  .pub h3 a:hover { color: var(--accent); text-decoration: underline; }
+  .pub .v { margin-top: auto; font: 500 14px var(--display); color: var(--ink-3); }
 
-				</div>
+  /* ---- contact ---- */
+  .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 32px 56px; }
+  @media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
+  .contact p { margin: 0 0 14px; color: var(--ink-2); max-width: 40ch; }
+  .contact .links { flex-direction: column; gap: 8px; }
+  form { display: grid; gap: 14px; }
+  label { display: grid; gap: 5px; font: 600 15px var(--display); }
+  input, textarea {
+    font: 400 17px/1.4 var(--body); color: var(--ink); background: var(--surface);
+    border: 1px solid var(--rule); border-radius: 0; padding: 10px 12px; width: 100%;
+  }
+  textarea { min-height: 150px; resize: vertical; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  button {
+    justify-self: start; font: 600 16px var(--display); color: var(--ground); background: var(--ink);
+    border: 1px solid var(--ink); padding: 11px 22px; cursor: pointer;
+  }
+  button:hover { background: var(--accent); border-color: var(--accent); }
+  button:disabled { opacity: .6; cursor: default; }
+  .status { min-height: 1.5em; margin: 0; font: 500 15px var(--display); color: var(--ink-2); }
 
-				<div class="bottom">
+  footer { margin-top: 96px; padding: 36px 0 56px; border-top: 1px solid var(--rule); }
+  footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
+  .foot-name { font: 700 17px var(--display); letter-spacing: -.01em; }
+  .social { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .social a {
+    display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 16px 0 13px;
+    border: 1px solid var(--rule); background: var(--surface); color: var(--ink); text-decoration: none;
+    font: 600 15px var(--display);
+  }
+  .social a:hover { border-color: var(--accent); color: var(--accent); }
+  .social svg { width: 20px; height: 20px; flex: none; }
 
-					
-						<ul class="icons">
-              
-              <li><a href="https://www.linkedin.com/in/nickturmanbryant/" class="icon fa-linkedin"><span class="label">linkedin</span></a></li>
-              
-              <li><a href="https://github.com/ntbryant" class="icon fa-github"><span class="label">github</span></a></li>
-              
-              <li><a href="https://scholar.google.com/citations?user=5YdGWtAAAAAJ&amp;hl=en" class="icon fa-graduation-cap"><span class="label">google-scholar</span></a></li>
-              
-              <li><a href="http://www.sweetsensors.com/" class="icon fa-scribd"><span class="label">sweetsense</span></a></li>
-              
-              <li><a href="https://www.pdx.edu/sweetlab/" class="icon fa-university"><span class="label">sweetsense</span></a></li>
-              
-						</ul>
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
 
-				</div>
+<header class="nav">
+  <div class="wrap">
+    <a class="name" href="#top">Nick Turman-Bryant</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#consulting">Consulting</a></li>
+        <li><a href="#applications">Applications</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="cv/Turman-Bryant-Resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-			</div>
+<main id="top">
+  <div class="wrap">
 
-		
-			<div id="main">
+    <div class="hero">
+      <h1>AI Applications for the Real World.</h1>
+      <p class="lede">I'm a lead data scientist and solutions architect at ICF. This is my consulting work, the applications I've built, and the research that came before.</p>
+    </div>
 
-				
-					<section id="top" class="one light cover">
-						<div class="container">
+    <!-- ===================== CONSULTING ===================== -->
+    <section id="consulting">
+      <div class="sec-head"><h2>Consulting</h2></div>
 
-							<header>
-								<h2 class="two"><strong>Data Science for Development</strong></h2>
-								<h3 class="alt"><strong>Collecting, analyzing, visualizing, and operationalizing data<br>
-								to improve water, sanitation, and energy services</strong></h3>
-							</header>
+      <div class="grid two">
+        <div class="cell"><article class="card">
+          <div class="meta"><span>Technical lead · 2019–2023</span></div>
+          <h3>DER Insight</h3>
+          <p>Distributed-energy planning platform for electric utilities. It turned a spreadsheet process into one repeatable modeling workflow across eight modules, and was named Innovative Product of the Year for 2023 in ICF's Energy, Environment, and Infrastructure group.</p>
+          <div class="stack">R · Python · Azure · Power BI</div>
+          <div class="links"><a href="projects/der-insight.html">Project page →</a><a href="https://www.icf.com/work/utilities/sightline-utility-customer-programs">ICF SightLine →</a></div>
+        </article></div>
+        <div class="cell"><article class="card">
+          <div class="meta"><span>Developer · 2023–2024</span></div>
+          <h3>CO₂Sight</h3>
+          <p>ICF's decarbonization planning platform. I was the sole developer of its building-sector model: twelve scenario pathways used in climate action plans for Pennsylvania, Virginia, Hampton Roads and Knoxville.</p>
+          <div class="stack">R · ComStock / ResStock</div>
+          <div class="links"><a href="https://www.icf.com/work/utilities/energy-decarbonization-platform-cosight">ICF product page →</a><a href="https://www.icf.com/-/media/files/icf/products-and-tools/icf-co2sight-decarbonization-pathways.pdf">Pathways (PDF) →</a><a href="https://www.nasdaq.com/press-release/icf-launches-decarbonization-planning-platform-2021-03-29">Launch →</a></div>
+        </article></div>
+      </div>
 
-						</div>
-					</section>
+      <div class="feature build" id="build-over-buy">
+        <h3>Build over buy</h3>
+        <p class="feature-lede">In the new AI world, a small team can build what used to be bought. Three examples from ICF.</p>
+        <div class="grid">
+          <div class="cell"><article class="card">
+            <div class="meta"><span>Lead contributor · 2026</span></div>
+            <h3>AI Reporting &amp; Insights Dashboard</h3>
+            <p>Reporting and insights on how AI tools are used across the firm and what they cost.</p>
+            <div class="stack">Go · pgx · sqlc · React 19 · TanStack</div>
+            <div class="links"><a href="projects/ai-reporting-insights-dashboard.html">Project page →</a></div>
+          </article></div>
+          <div class="cell"><article class="card">
+            <div class="meta"><span>Contributor · 2026</span></div>
+            <h3>Fathom Ideation Engine</h3>
+            <p>Platform that lets teams stand up AI proofs of concept on shared, governed infrastructure. Part of ICF Fathom, the firm's AI offering.</p>
+            <div class="stack">Go · React · Pulumi · Kubernetes</div>
+            <div class="links"><a href="https://www.icf.com/work/enterprise-ai/fathom-ai">ICF Fathom →</a></div>
+          </article></div>
+          <div class="cell"><article class="card">
+            <div class="meta"><span>Lead · 2026</span></div>
+            <h3>AI survey platform</h3>
+            <p>Conversational surveys with sliders and rankings inside the chat, and fixed branching rules. Measures AI coding adoption across ICF's developers.</p>
+            <div class="stack">Python · OpenAI Agents SDK · React · Postgres</div>
+            <div class="links"><a href="projects/ai-survey-platform.html">Project page →</a></div>
+          </article></div>
+        </div>
+      </div>
 
-				
-					<section id="publications" class="two">
-						<div class="container">
+      <div class="feature fde" id="forward-deployed">
+        <h3>Forward deployed engineer</h3>
+        <p class="feature-lede">Engineering done alongside clients and domain teams, and deployed into their environments. Three examples.</p>
+        <div class="grid">
+          <div class="cell"><article class="card">
+            <div class="meta"><span>Developer · 2025</span></div>
+            <h3>Climate downscaling</h3>
+            <p>Fine-tuned the IBM–NASA Prithvi WxC foundation model and reproduced NREL's Sup3rCC downscaling pipeline in SageMaker.</p>
+            <div class="stack">AWS SageMaker · PyTorch · geospatial ML</div>
+            <div class="links"><a href="projects/climate-downscaling.html">Project page →</a></div>
+          </article></div>
+          <div class="cell"><article class="card">
+            <div class="meta"><span>Lead · 2025–2026</span></div>
+            <h3>Infrastructure-as-code agent</h3>
+            <p>Secure-by-default cloud templates with compliance tests, structured so a coding agent can scaffold governed environments from a skill file.</p>
+            <div class="stack">Pulumi · CrossGuard · GitHub Actions</div>
+            <div class="links"><a href="projects/infrastructure-as-code-agent.html">Project page →</a></div>
+          </article></div>
+          <div class="cell"><article class="card">
+            <div class="meta"><span>Lead engineer · 2023–2026</span></div>
+            <h3>Forward-deployed engineering</h3>
+            <p>Work built with and for teams across ICF: ten proof-of-concept deployments in six months against a goal of eight, the needs-assessment assistant for HPHS, sales forecasting and account-based marketing models.</p>
+            <div class="stack">AWS SageMaker · Azure OpenAI · Django · Next.js · R · Power BI</div>
+            <div class="links"><a href="projects/forward-deployed-proofs-of-concept.html">Project page →</a><a href="https://www.icf.com/work/enterprise-ai/fathom-ai">Built on ICF Fathom →</a></div>
+          </article></div>
+        </div>
+        <!-- More to add later: ClimateSight dashboard, CodePulse. -->
+      </div>
 
-							<header>
-								<h2>Publications</h2>
-							</header>
+    </section>
 
-              <div class="row">
-                <div class="4u 12u$(mobile)">
-                   
-                  <article class="item">
-                    <a href="https://www.mdpi.com/2071-1050/11/11/3046/htm" class="image fit"><img src="img/droughtResilience.jpg" alt="Improved Drought Resilience Article" /></a>
-                    <header>
-                      <h3>Improved Drought Resilience Through Water Service Monitoring Article</h3>
-                    </header>
-                  </article>
-                   
-                  <article class="item">
-                    <a href="https://www.lightingglobal.org/wp-content/uploads/2015/10/2015-RiseOfSolar-10182015-withSurvey.pdf?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BIWLAyN9DTJaOumOQMZSvxg%3D%3D" class="image fit"><img src="img/marketEvolution.png" alt="Market Evolution Report" /></a>
-                    <header>
-                      <h3>Market Evolution Report for Off-Grid Lighting in Kenya</h3>
-                    </header>
-                  </article>
-                  
-                </div>
+    <!-- ===================== APPLICATIONS ===================== -->
+    <section id="applications">
+      <div class="sec-head"><h2>Applications</h2></div>
 
-                <div class="4u 12u$(mobile)">
-                   
-                  <article class="item">
-                    <a href="https://doi.org/10.3362/1756-3488.18-00008" class="image fit"><img src="img/washIndicators.jpg" alt="Measuring Progress Article" /></a>
-                    <header>
-                      <h3>Measuring Progress Toward Sanitation and Hygiene Targets Article</h3>
-                    </header>
-                  </article>
-                   
-                  <article class="item">
-                    <a href="https://www.lightingglobal.org/wp-content/uploads/2015/05/Off_Grid_Power_and_Connectivity_PAYG_May_2015.pdf?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BIWLAyN9DTJaOumOQMZSvxg%3D%3D" class="image fit"><img src="img/payg.png" alt="Pay-as-you-go Financing Report" /></a>
-                    <header>
-                      <h3>Pay-As-You-Go Financing Report for Off-Grid Lighting in Kenya</h3>
-                    </header>
-                  </article>
-                  
-                </div>
+      <div class="grid">
+        <div class="cell"><article class="card">
+          <div class="meta"><span class="chip wip">Site coming</span><span>Founder · 2026</span></div>
+          <h3>tr<span class="ai">AI</span>ning-wheels</h3>
+          <p>A small AI-enablement practice that coaches people and small organizations to use AI themselves, through a three-level ladder from drafting to work product to building systems.</p>
+          <div class="stack">Static site · S3 + CloudFront</div>
+        </article></div>
+        <div class="cell"><article class="card">
+          <div class="meta"><span class="chip wip">Demo coming</span><span>Builder · 2026</span></div>
+          <h3>VoiceRAG language tutor</h3>
+          <p>Talk with an AI tutor and work through PDF lessons page by page, with voice conversation over a realtime model.</p>
+          <div class="stack">React · FastAPI · Azure OpenAI Realtime · AI Search</div>
+        </article></div>
+        <div class="cell"><article class="card">
+          <div class="meta"><span class="chip live">Code public</span><span>Author · 2019</span></div>
+          <h3>Off-Grid Power Predictor</h3>
+          <p>Predicts household solar output from the weather forecast. The original beat analytical models by 40%.</p>
+          <div class="stack">Python · XGBoost</div>
+          <div class="links"><a href="https://github.com/ntbryant/PowerPredictor">Source →</a></div>
+        </article></div>
+        <div class="cell"><article class="card">
+          <div class="meta"><span class="chip wip">In progress</span><span>Builder · 2026</span></div>
+          <h3>Harmony Trainer</h3>
+          <p>Upload a photo of sheet music; get a playable, transposable score and a four-part reference harmonization to study.</p>
+          <div class="stack">Python · FastAPI · music21 · OMR</div>
+        </article></div>
+        <div class="cell"><article class="card">
+          <div class="meta"><span class="chip live">In use</span><span>Builder · 2026</span></div>
+          <h3>Academic Advisor</h3>
+          <p>A research library for planning high school and college: course maps, admissions rules, testing and aid, built from primary-source documents by parallel research agents.</p>
+          <div class="stack">Markdown · AI research agents · source archive</div>
+        </article></div>
 
-                <div class="4u 12u$(mobile)">
-                   
-                  <article class="item">
-                    <a href="img/ToiletAlarms.pdf" class="image fit"><img src="img/latrineServicing.jpg" alt="Latrine Servicing Article" /></a>
-                    <header>
-                      <h3>Machine Learning for Latrine Servicing Optimization Article</h3>
-                    </header>
-                  </article>
-                   
-                  <article class="item">
-                    <a href="https://www.lightingglobal.org/wp-content/uploads/2015/10/Quality_Communication_09282015.pdf?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BIWLAyN9DTJaOumOQMZSvxg%3D%3D" class="image fit"><img src="img/qualityAssurance.png" alt="Quality Assurance Report" /></a>
-                    <header>
-                      <h3>Quality Assurance Report for Off-Grid Lighting in Kenya</h3>
-                    </header>
-                  </article>
-                  
-                </div>
-              </div>
+        <!--
+          TO ADD AN APPLICATION: copy a full <div class="cell">…</div> block above and edit it.
+          Status chip: class="chip live" (public), "chip wip" (in progress), or plain "chip".
+        -->
+      </div>
+    </section>
 
+    <!-- ===================== EDUCATION ===================== -->
+    <section id="education">
+      <div class="sec-head"><h2>Education</h2></div>
+      <div class="edu">
+        <div><b>Ph.D., Systems Science</b><span>Portland State University</span></div>
+        <div><b>M.S., Energy, Technology &amp; Policy</b><span>Humboldt State University</span></div>
+        <div><b>B.S., Mathematics</b><span>University of Puget Sound</span></div>
+        <div><b>AWS Certified</b><span>Solutions Architect – Associate · Cloud Practitioner</span></div>
+        <div><b>Graduate Certificate, Computer Simulation and Modeling</b><span>Portland State University</span></div>
+      </div>
+    </section>
 
-						</div>
-					</section>	
+    <!-- ===================== PUBLICATIONS ===================== -->
+    <section id="publications">
+      <div class="sec-head"><h2>Publications</h2></div>
+      <ul class="pubs">
+        <li class="pub">
+          <a href="https://doi.org/10.1016/j.deveng.2020.100052" tabindex="-1" aria-hidden="true"><img src="img/pubs/latrine.jpg" alt="" loading="lazy"></a>
+          <div class="pub-body"><h3><a href="https://doi.org/10.1016/j.deveng.2020.100052">Toilet Alarms: latrine sensors and machine learning for optimizing sanitation services</a></h3><span class="v">Development Engineering · 2020</span></div>
+        </li>
+        <li class="pub">
+          <a href="https://doi.org/10.3390/su11113046" tabindex="-1" aria-hidden="true"><img src="img/pubs/drought.jpg" alt="" loading="lazy"></a>
+          <div class="pub-body"><h3><a href="https://doi.org/10.3390/su11113046">Improved drought resilience through continuous water service monitoring</a></h3><span class="v">Sustainability · 2019</span></div>
+        </li>
+        <li class="pub">
+          <a href="https://doi.org/10.3362/1756-3488.18-00008" tabindex="-1" aria-hidden="true"><img src="img/pubs/wash.jpg" alt="" loading="lazy"></a>
+          <div class="pub-body"><h3><a href="https://doi.org/10.3362/1756-3488.18-00008">Measuring progress towards sanitation and hygiene targets</a></h3><span class="v">Waterlines · 2018</span></div>
+        </li>
+        <li class="pub">
+          <a href="https://www.lightingglobal.org/resource/the-rise-of-solar-market-evolution-of-off-grid-lighting-in-three-kenyan-towns/" tabindex="-1" aria-hidden="true"><img src="img/pubs/market.jpg" alt="" loading="lazy"></a>
+          <div class="pub-body"><h3><a href="https://www.lightingglobal.org/resource/the-rise-of-solar-market-evolution-of-off-grid-lighting-in-three-kenyan-towns/">The Rise of Solar Market: evolution of off-grid lighting in three Kenyan towns</a></h3><span class="v">Lighting Global · 2015</span></div>
+        </li>
+        <li class="pub">
+          <a href="https://rael.berkeley.edu/wp-content/uploads/2015/05/LG-2015-PAYG-Report-Alstone-etal.pdf" tabindex="-1" aria-hidden="true"><img src="img/pubs/payg.jpg" alt="" loading="lazy"></a>
+          <div class="pub-body"><h3><a href="https://rael.berkeley.edu/wp-content/uploads/2015/05/LG-2015-PAYG-Report-Alstone-etal.pdf">Off-Grid Power and Connectivity: pay-as-you-go financing and digital supply chains for pico-solar</a></h3><span class="v">Lighting Global · 2015</span></div>
+        </li>
+        <li class="pub">
+          <a href="https://www.lightingglobal.org/resource/quality-communication-quality-assurance-in-kenyas-off-grid-lighting-market/" tabindex="-1" aria-hidden="true"><img src="img/pubs/quality.jpg" alt="" loading="lazy"></a>
+          <div class="pub-body"><h3><a href="https://www.lightingglobal.org/resource/quality-communication-quality-assurance-in-kenyas-off-grid-lighting-market/">Quality Communication: quality assurance in Kenya's off-grid lighting market</a></h3><span class="v">Lighting Global · 2015</span></div>
+        </li>
+      </ul>
+    </section>
 
-				
-					<section id="portfolio" class="three">
-						<div class="container">
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact">
+      <div class="sec-head"><h2>Contact</h2></div>
+      <div class="contact">
+        <div>
+          <p>Send me a message and I'll reply by email.</p>
+        </div>
+        <form id="contact-form" action="https://formspree.io/f/mkjjppwn" method="POST" novalidate>
+          <label for="cf-name">Name<input id="cf-name" name="name" type="text" autocomplete="name" required></label>
+          <label for="cf-email">Email<input id="cf-email" name="email" type="email" autocomplete="email" required></label>
+          <label for="cf-message">Message<textarea id="cf-message" name="message" required></textarea></label>
+          <input type="hidden" name="_subject" value="Message from your portfolio">
+          <div class="hp" aria-hidden="true"><label for="cf-website">Website<input id="cf-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <button id="cf-send" type="submit">Send message</button>
+          <p class="status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
 
-							<header>
-								<h2>Portfolio</h2>
-							</header>
+  </div>
+</main>
 
-							<p>Here are some of the projects that I have worked on. Click the image to see more about the project.</p>
+<footer>
+  <div class="wrap">
+    <span class="foot-name">Nick Turman-Bryant</span>
+    <ul class="social">
+      <li><a href="https://www.linkedin.com/in/nickturmanbryant/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg><span>LinkedIn</span></a></li>
+      <li><a href="https://github.com/ntbryant"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span>GitHub</span></a></li>
+      <li><a href="https://scholar.google.com/citations?user=5YdGWtAAAAAJ&amp;hl=en"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg><span>Google Scholar</span></a></li>
+      <li><a href="cv/Turman-Bryant-Resume.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg><span>Résumé</span></a></li>
+    </ul>
+  </div>
+</footer>
 
+<script>
+  /* Formspree form endpoint. */
+  var FORM_ENDPOINT = "https://formspree.io/f/mkjjppwn";
 
-              <div class="row">
-                <div class="4u 12u$(mobile)">
-                   
-                  <article class="item">
-                    <a href="http://offgridpowerpredictor.com/" class="image fit"><img src="img/powerPredictor.PNG" alt="Power Predictor" /></a>
-                    <header>
-                      <h3>Off-Grid Power Predictor Web Application</h3>
-                    </header>
-                  </article>
-                   
-                  <article class="item">
-                    <a href="http://www.sweetsensors.com/sweetdata/sanergy-dashboard/" class="image fit"><img src="img/sanergy.jpg" alt="Sanergy Dashboard" /></a>
-                    <header>
-                      <h3>Dashboard for Sanergy Sanitation Study in Kenya</h3>
-                    </header>
-                  </article>
-                  
-                </div>
+  var form = document.getElementById("contact-form");
+  var statusEl = document.getElementById("cf-status");
+  var sendBtn = document.getElementById("cf-send");
 
-                <div class="4u 12u$(mobile)">
-                   
-                  <article class="item">
-                    <a href="https://nicktb.shinyapps.io/habitatexample/" class="image fit"><img src="img/neighborhoodRevitalization.PNG" alt="Neighborhood Revitalization Dashboard" /></a>
-                    <header>
-                      <h3>Shiny App for Neighborhood Revitalization Data</h3>
-                    </header>
-                  </article>
-                   
-                  <article class="item">
-                    <a href="http://www.sweetsensors.com/sweetdata/kenyarapid/" class="image fit"><img src="img/kenya.PNG" alt="Kenya Dashboard" /></a>
-                    <header>
-                      <h3>Dashboard for Kenya Water Study</h3>
-                    </header>
-                  </article>
-                  
-                </div>
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (!form.checkValidity()) {
+      statusEl.textContent = "Please fill in your name, a valid email and a message.";
+      return;
+    }
+    if (!FORM_ENDPOINT) {
+      statusEl.textContent = "This form isn't connected yet, so nothing was sent.";
+      return;
+    }
+    sendBtn.disabled = true;
+    statusEl.textContent = "Sending…";
+    fetch(FORM_ENDPOINT, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+      .then(function (r) {
+        if (!r.ok) throw new Error("bad response");
+        form.reset();
+        statusEl.textContent = "Thanks. Your message was sent.";
+      })
+      .catch(function () {
+        statusEl.textContent = "The message could not be sent. Please try LinkedIn instead.";
+      })
+      .then(function () { sendBtn.disabled = false; });
+  });
+</script>
 
-                <div class="4u 12u$(mobile)">
-                   
-                  <article class="item">
-                    <a href="https://nicktb.shinyapps.io/AfarStudy/" class="image fit"><img src="img/afar.jpg" alt="Ethiopia Mapping Shiny App" /></a>
-                    <header>
-                      <h3>Shiny App for Mapping Borehole Sites in Ethiopia</h3>
-                    </header>
-                  </article>
-                   
-                  <article class="item">
-                    <a href="https://afar.mwater.co/#/" class="image fit"><img src="img/ethiopia.PNG" alt="Ethiopia Dashboard" /></a>
-                    <header>
-                      <h3>Dashboard for Ethiopia Water Study</h3>
-                    </header>
-                  </article>
-                  
-                </div>
-              </div>
-
-
-						</div>
-					</section>
-
-				
-					<section id="about" class="four">
-						<div class="container">
-
-							<header>
-								<h2>About Me</h2>
-							</header>
-
-							<a href="#" class="image featured"><img src="img/about.jpg" alt="" /></a>
-
-							<p>I have a PhD in Systems Science and specialize in information and communication
-							   technologies used in development (ICT4D). At the crossroads where big data and 
-							   development collide, I use machine learning and advanced statistical methods to combine
-							   time-series data from embedded sensors with mobile surveys and site conditions to derive
-							   actionable insights that can improve water, sanitation, and energy services.</p>
-
-						</div>
-					</section>
-
-				
-					<section id="contact" class="five">
-						<div class="container">
-
-							<header>
-								<h2>Contact</h2>
-							</header>
-
-							<form method="post" action="https://formspree.io/nicktb@pdx.edu" method="POST">
-								<div class="row">
-									<div class="6u 12u$(mobile)"><input type="text" name="name" placeholder="Name" /></div>
-									<div class="6u$ 12u$(mobile)"><input type="text" name="email" placeholder="Email" /></div>
-									<div class="12u$">
-										<textarea name="message" placeholder="Message"></textarea>
-									</div>
-									<div class="12u$">
-										<input type="submit" value="Send Message" />
-									</div>
-								</div>
-							</form>
-
-						</div>
-					</section>
-
-			</div>
-
-		
-			<div id="footer">
-
-				
-					<ul class="copyright">
-						<li>&copy; 2019</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li>Powered by <a href="https://gohugo.io/">Hugo</a></li>
-					</ul>
-
-			</div>
-
-		
-			<script src="/js/jquery.min.js"></script>
-			<script src="/js/jquery.scrolly.min.js"></script>
-			<script src="/js/jquery.scrollzer.min.js"></script>
-			<script src="/js/skel.min.js"></script>
-			<script src="/js/util.js"></script>
-			
-			<script src="/js/main.js"></script>
-
-	</body>
+</body>
 </html>
