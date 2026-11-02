@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Climate downscaling — Nick Turman-Bryant</title>
+<meta name="description" content="Global climate models are too coarse to describe a particular place. I tested two ways of sharpening them, both in the cloud.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316181a%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Arial,sans-serif%27 font-size=%2720%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23f5f5f2%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  :root {
+    --ground: #f5f5f2;
+    --surface: #ffffff;
+    --surface-2: #eaeae5;
+    --ink: #16181a;
+    --ink-2: #41464a;
+    --ink-3: #6b7176;
+    --rule: #d5d5ce;
+    --accent: #3a4a9b;
+    --live: #2c6e4b;
+    --live-soft: #dcebe1;
+    --panel: #061f3f;
+    --panel-ink: #e8eef6;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+      --pad: clamp(20px, 5vw, 64px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141516; --surface: #1c1e20; --surface-2: #26292b;
+      --ink: #ecece8; --ink-2: #bcc0c3; --ink-3: #8b9196; --rule: #33373a;
+      --accent: #93a2e8; --live: #79c79a; --live-soft: #163022;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141516; --surface: #1c1e20; --surface-2: #26292b;
+    --ink: #ecece8; --ink-2: #bcc0c3; --ink-3: #8b9196; --rule: #33373a;
+    --accent: #93a2e8; --live: #79c79a; --live-soft: #163022;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 17.5px/1.62 var(--body); -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .wrap {
+    max-width: 880px; margin: 0 auto;
+    padding-left: max(var(--pad), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--pad), env(safe-area-inset-right, 0px));
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .back { display: inline-block; margin: 22px 0 0; font: 600 15px var(--display); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+
+  header { padding-top: 40px; }
+  h1 { font: 800 clamp(40px, 8vw, 72px)/.98 var(--display); letter-spacing: -.035em; margin: 0 0 18px; text-wrap: balance; }
+  .lede { font-size: 20px; color: var(--ink-2); max-width: 60ch; margin: 0; }
+
+  figure { margin: 36px 0 0; }
+  .shot { background: var(--panel); padding: clamp(14px, 3vw, 32px); display: flex; justify-content: center; }
+  .shot img { display: block; width: 100%; max-width: 720px; height: auto; }
+  figcaption { font-size: 14.5px; color: var(--ink-3); margin-top: 10px; max-width: 70ch; }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 36px 0 0; }
+  .facts div { background: var(--surface); padding: 14px 16px; min-width: 0; }
+  .facts dt { font: 600 14px var(--display); color: var(--ink-3); margin: 0 0 4px; }
+  .facts dd { margin: 0; font-size: 16px; line-height: 1.4; }
+
+  h2 { font: 700 clamp(24px, 3.6vw, 30px)/1.12 var(--display); letter-spacing: -.025em; margin: 56px 0 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  p { margin: 0 0 16px; max-width: 66ch; }
+  ul { margin: 0 0 16px; padding-left: 1.15em; max-width: 66ch; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--ink-3); }
+
+  .modules { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; max-width: none; }
+  .modules li { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; margin: 0; min-width: 0; }
+  .modules b { display: block; font: 700 17px/1.25 var(--display); letter-spacing: -.01em; margin-bottom: 4px; }
+  .modules span { font-size: 15.5px; color: var(--ink-2); line-height: 1.45; }
+
+    .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font: 600 16px var(--display); }
+
+  footer { margin-top: 72px; padding: 22px 0 56px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-3); }
+
+  .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 0; margin: 0 0 10px; }
+  .node { flex: 1 1 150px; min-width: 0; background: var(--surface); border: 1px solid var(--rule); padding: 12px 14px; }
+  .node b { display: block; font: 700 15px/1.25 var(--display); letter-spacing: -.01em; margin-bottom: 3px; }
+  .node span { font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+  .arrow { flex: 0 0 28px; display: flex; align-items: center; justify-content: center; color: var(--ink-3); font: 500 16px var(--display); }
+  .pocs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 0 0 16px; }
+  .pocs article { background: var(--surface); border: 1px solid var(--rule); padding: 16px 18px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .pocs h3 { font: 700 18px/1.25 var(--display); letter-spacing: -.01em; margin: 0; }
+  .pocs p { margin: 0; max-width: none; font-size: 16px; line-height: 1.45; color: var(--ink-2); }
+  .pocs .team { font: 600 14px var(--display); color: var(--accent); }
+  .pocs .stk { margin-top: auto; padding-top: 4px; font: 500 14px var(--display); color: var(--ink-3); }
+  .diagram { background: var(--surface-2); padding: clamp(14px, 3vw, 28px); }
+  @media (max-width: 640px) {
+    .flow { flex-direction: column; gap: 0; }
+    .arrow { flex-basis: 26px; transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../index.html">← Portfolio</a>
+
+  <header>
+    <h1>Climate downscaling</h1>
+    <p class="lede">Global climate models are too coarse to describe a particular place. I tested two ways of sharpening them, both in the cloud.</p>
+  </header>
+
+  <figure>
+    <div class="diagram">
+<div class="flow"><div class="node"><b>Coarse climate data</b><span>Global model output</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Fine-tuned foundation model</b><span>IBM–NASA Prithvi WxC</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Fine-resolution estimate</b><span>Temperature and wind</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Evaluation</b><span>Compared with ClimaX</span></div></div>
+<div class="flow"><div class="node"><b>CMIP6 projections</b><span>Coarse global models</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Sup3rCC pipeline</b><span>Reproduction of NREL&#x27;s sup3r downscaling models</span></div><div class="arrow" aria-hidden="true">→</div><div class="node"><b>Fine-resolution estimate</b><span>Reproducible, toward production</span></div></div>
+    </div>
+    <figcaption>The two approaches I evaluated. Architecture sketch.</figcaption>
+  </figure>
+
+  <dl class="facts"><div><dt>My role</dt><dd>Developer, working with climate scientists</dd></div><div><dt>Years</dt><dd>2025</dd></div><div><dt>Built with</dt><dd>AWS SageMaker, PyTorch, Python</dd></div><div><dt>Worked with</dt><dd>ICF&#x27;s ClimateSight team</dd></div></dl>
+
+  <h2>The problem</h2>
+  <p>Climate risk work needs local answers, but global models describe the climate in large grid cells. Downscaling bridges the gap.</p>
+  <h2>What I did</h2>
+  <ul><li>Fine-tuned the IBM–NASA Prithvi WxC foundation model to downscale two-metre temperature from MERRA-2 and surface winds from ECCC data, and compared it with ClimaX.</li><li>Reproduced NREL&#x27;s sup3r approach to downscaling CMIP6 projections, and built the pipeline so it can be re-run and moved toward production.</li><li>Ran the training and evaluation on AWS SageMaker, so the work did not depend on a single machine.</li></ul>
+  <h2>Why it matters</h2>
+  <p>A foundation model that can be adapted to a new region or variable with modest data is a different kind of tool from a bespoke model per project. This work tested whether that holds up for downscaling.</p>
+
+  <h2>Outcome</h2>
+  <ul><li>A working comparison of the two approaches and a reproducible pipeline, delivered to ICF&#x27;s ClimateSight team.</li></ul>
+
+
+
+  <footer>Nick Turman-Bryant · <a href="../index.html">Back to portfolio</a></footer>
+</div>
+</body>
+</html>

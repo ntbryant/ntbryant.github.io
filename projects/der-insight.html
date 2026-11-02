@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DER Insight — Nick Turman-Bryant</title>
+<meta name="description" content="DER Insight: ICF's distributed-energy planning platform for electric utilities. My role, what I built, and where it appears on ICF's site.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%2316181a%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Arial,sans-serif%27 font-size=%2720%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23f5f5f2%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  :root {
+    --ground: #f5f5f2;
+    --surface: #ffffff;
+    --surface-2: #eaeae5;
+    --ink: #16181a;
+    --ink-2: #41464a;
+    --ink-3: #6b7176;
+    --rule: #d5d5ce;
+    --accent: #3a4a9b;
+    --live: #2c6e4b;
+    --live-soft: #dcebe1;
+    --panel: #061f3f;
+    --panel-ink: #e8eef6;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+      --pad: clamp(20px, 5vw, 64px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141516; --surface: #1c1e20; --surface-2: #26292b;
+      --ink: #ecece8; --ink-2: #bcc0c3; --ink-3: #8b9196; --rule: #33373a;
+      --accent: #93a2e8; --live: #79c79a; --live-soft: #163022;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #141516; --surface: #1c1e20; --surface-2: #26292b;
+    --ink: #ecece8; --ink-2: #bcc0c3; --ink-3: #8b9196; --rule: #33373a;
+    --accent: #93a2e8; --live: #79c79a; --live-soft: #163022;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 17.5px/1.62 var(--body); -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .wrap {
+    max-width: 880px; margin: 0 auto;
+    padding-left: max(var(--pad), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--pad), env(safe-area-inset-right, 0px));
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .back { display: inline-block; margin: 22px 0 0; font: 600 15px var(--display); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+
+  header { padding-top: 40px; }
+  h1 { font: 800 clamp(40px, 8vw, 72px)/.98 var(--display); letter-spacing: -.035em; margin: 0 0 18px; text-wrap: balance; }
+  .lede { font-size: 20px; color: var(--ink-2); max-width: 60ch; margin: 0; }
+
+  figure { margin: 36px 0 0; }
+  .shot { background: var(--panel); padding: clamp(14px, 3vw, 32px); display: flex; justify-content: center; }
+  .shot img { display: block; width: 100%; max-width: 720px; height: auto; }
+  figcaption { font-size: 14.5px; color: var(--ink-3); margin-top: 10px; max-width: 70ch; }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 36px 0 0; }
+  .facts div { background: var(--surface); padding: 14px 16px; min-width: 0; }
+  .facts dt { font: 600 14px var(--display); color: var(--ink-3); margin: 0 0 4px; }
+  .facts dd { margin: 0; font-size: 16px; line-height: 1.4; }
+
+  h2 { font: 700 clamp(24px, 3.6vw, 30px)/1.12 var(--display); letter-spacing: -.025em; margin: 56px 0 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  p { margin: 0 0 16px; max-width: 66ch; }
+  ul { margin: 0 0 16px; padding-left: 1.15em; max-width: 66ch; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--ink-3); }
+
+  .modules { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; max-width: none; }
+  .modules li { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; margin: 0; min-width: 0; }
+  .modules b { display: block; font: 700 17px/1.25 var(--display); letter-spacing: -.01em; margin-bottom: 4px; }
+  .modules span { font-size: 15.5px; color: var(--ink-2); line-height: 1.45; }
+
+    .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font: 600 16px var(--display); }
+
+  footer { margin-top: 72px; padding: 22px 0 56px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../index.html">← Portfolio</a>
+
+  <header>
+    <h1>DER Insight</h1>
+    <p class="lede">A planning and analytics platform that helps electric utilities decide where and how to use distributed energy resources, built to replace a one-off spreadsheet process with a repeatable one.</p>
+  </header>
+
+  <figure>
+    <div class="shot">
+      <img src="../img/der-insight-sightline.png" alt="A DER Insight program dashboard on a laptop with a goal-tracking chart on a tablet: a map of enrolled premises, energy savings by upgrade type, and progress bars for kWh, kW, therms and projects against goals." width="905" height="575">
+    </div>
+    <figcaption>DER Insight's program dashboard, as shown in the analytics module of ICF's <a href="https://www.icf.com/work/utilities/sightline-utility-customer-programs">SightLine</a> page. Image from ICF's website.</figcaption>
+  </figure>
+
+  <dl class="facts">
+    <div><dt>My role</dt><dd>Core developer from the first build, later technical lead</dd></div>
+    <div><dt>Years</dt><dd>2019–2023</dd></div>
+    <div><dt>Team</dt><dd>Two co-developers and a cloud architect at the start; up to six developers across four modules</dd></div>
+    <div><dt>Built with</dt><dd>R, Power BI, Azure, AWS</dd></div>
+  </dl>
+
+  <h2>The problem</h2>
+  <p>Utilities that want to defer a substation upgrade with customer programs, batteries or flexible load need to know which resources would work, what they would cost, and how many customers would sign up. The analysis was done by hand, in spreadsheets, one substation at a time. Each new study started close to zero.</p>
+
+  <h2>What I built</h2>
+  <p>I helped turn that process into one connected set of models, with thousands of lines of code across more than eight modules. A repeat analysis on a new substation took a fraction of the time of the first.</p>
+  <ul class="modules">
+    <li><b>Non-wires alternatives</b><span>Building energy models, load-shape calibration and customer participation for substation-level deferral studies.</span></li>
+    <li><b>Program optimizer</b><span>Designs flexible-load programs and compares portfolios of resources.</span></li>
+    <li><b>Benefit estimation</b><span>One consistent way to estimate the benefits of a program.</span></li>
+    <li><b>Savings evaluation</b><span>Verifies savings from metered energy use.</span></li>
+    <li><b>Load forecasting</b><span>Time-series machine learning for system and substation load, including a System Planning MVP.</span></li>
+    <li><b>Dispatch automation</b><span>Research toward automating program calls through utility control systems.</span></li>
+  </ul>
+  <p>I also built the Power BI decision tool that sits on top of the models, and an anonymized demo that ICF used in sales presentations.</p>
+
+  <h2>My contribution</h2>
+  <ul>
+    <li>Wrote the non-wires-alternative cost-effectiveness models for studies across several substations at two Midwest utilities.</li>
+    <li>Led the System Planning MVP, coordinating three technologists to forecast managed and unmanaged load growth at the substation level.</li>
+    <li>Covered a lead collaborator's module development during parental leave, coordinating six developers across four modules.</li>
+    <li>Interviewed, hired and trained new team members in R, Python and Azure.</li>
+  </ul>
+
+  <h2>Outcome</h2>
+  <ul>
+    <li>Named Innovative Product of the Year for 2023 in ICF's Energy, Environment, and Infrastructure group.</li>
+    <li>Repeat studies for new substations ran much faster than the first.</li>
+    <li>Led to follow-on work with the same utilities and to new utility clients.</li>
+  </ul>
+
+  <h2>Where to see it</h2>
+  <div class="links">
+    <a href="https://www.icf.com/work/utilities/sightline-utility-customer-programs">ICF SightLine page →</a>
+  </div>
+
+  <footer>Nick Turman-Bryant · <a href="../index.html">Back to portfolio</a></footer>
+</div>
+</body>
+</html>
